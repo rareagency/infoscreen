@@ -48,7 +48,12 @@ async function main() {
     const site = sites[i % sites.length];
     console.log("Opening", site.url);
 
-    await page.goto(site.url);
+    try {
+      await page.goto(site.url);
+    } catch (error) {
+      console.error("Failed to load", site.url);
+      console.error(error);
+    }
 
     await wait(site.showFor);
     i++;
