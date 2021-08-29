@@ -40,17 +40,15 @@ async function main() {
     ],
     ignoreDefaultArgs: ["--enable-automation"],
   });
-
   const page = await browser.newPage();
+  page.setDefaultNavigationTimeout(0);
 
   let i = 0;
   while (true) {
     const site = sites[i % sites.length];
     console.log("Opening", site.url);
 
-    await page.goto(site.url, {
-      waitUntil: "networkidle2",
-    });
+    await page.goto(site.url);
 
     await wait(site.showFor);
     i++;
